@@ -1,6 +1,8 @@
 import { Routes, Route } from "react-router-dom";
 import LaunchPage from "./features/00-app/pages/launch-page";
 import MareaCiubarealaPage from "./features/01-marea-ciubareala/pages/marea-ciubareala-page";
+import { HikerealaBillSplitterPage } from "./features/03-hikereala-bill-splitter/pages/hikereala-bill-splitter-page";
+import "./App.css"
 
 export default function App() {
   return (
@@ -9,7 +11,7 @@ export default function App() {
         <Route path="/" element={<LaunchPage />} />
         <Route path="/marea-ciubareala" element={<MareaCiubarealaPage />} />
         <Route path="/spin-the-drink" element={<>Will come...</>} />
-        <Route path="/hbs" element={<>Will come...</>} />
+        <Route path="/hbs" element={<HikerealaBillSplitterPage/>} />
       </Routes>
       <footer className="py-3 text-center text-xs text-gray-500">
         vvsoftware@2026
