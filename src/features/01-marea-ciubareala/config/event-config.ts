@@ -1,4 +1,4 @@
-export const TARGET_DATE = new Date("2026-01-26T17:00:00");
+export const TARGET_DATE = new Date("2026-02-26T17:00:00");
 export const EVENT_DURATION_DAYS = 5;
 
 export const POEM_LINES = [
