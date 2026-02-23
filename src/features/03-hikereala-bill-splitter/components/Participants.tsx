@@ -1,19 +1,14 @@
 import { Button, Card, Chip, Stack, TextField, Typography } from "@mui/material"
 import { useState } from "react"
 import GroupsIcon from '@mui/icons-material/Groups';
+import { useBillSplitter } from "../context/BillSplitterContext";
 
-export interface IParticipantsProps {
-    participantList: any[]
-    onAddParticipant: any,
-    onDeleteParticipant: any
-}
-export function Participants(
-    props: IParticipantsProps
-) {
+export function Participants() {
+    const {addParticipant, deleteParticipant, participants} = useBillSplitter();
     const [participantToAdd, setParticipantToAdd] = useState<string>();
 
     function handleDelete(chipToDelete: any) {
-        props.onDeleteParticipant(chipToDelete)
+        deleteParticipant(chipToDelete)
     }
 
     return (
@@ -26,11 +21,11 @@ export function Participants(
     
         <Stack sx={{justifyContent: "space-between"}} direction="row" spacing={2}>
         <TextField margin="normal"  onChange={(event) => setParticipantToAdd(event.target.value)} value={participantToAdd} size="small"></TextField>
-        <Button onClick={() => props.onAddParticipant(participantToAdd)}variant="contained">Adauga</Button>
+        <Button onClick={() => addParticipant(participantToAdd ?? "")}variant="contained">Adauga</Button>
         </Stack>
         <Stack direction="row" spacing={2}>
         <div>
-            {props.participantList.map(participant => <Chip sx={{margin: "4px"}} color="info" label={participant} onDelete={() => handleDelete(participant)}></Chip>)}
+            {participants.map(participant => <Chip sx={{margin: "4px"}} color="info" label={participant} onDelete={() => handleDelete(participant)}></Chip>)}
         </div>
         </Stack>
         </Stack>
