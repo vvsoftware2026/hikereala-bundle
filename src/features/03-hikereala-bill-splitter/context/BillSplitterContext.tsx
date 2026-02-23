@@ -36,7 +36,7 @@ export function BillSplitterProvider({ children }: { children: React.ReactNode }
     
   const [participants, setParticipants] = useState<string[]>([]);
   const [expenses, setExpenses] = useState<Expense[]>([]);
-  const [balances, setBalances] = useState<BalancePerPerson[]>([])
+  const [balances, ] = useState<BalancePerPerson[]>([])
   let expenseCounter = useRef(0);
 
   useEffect(() => {

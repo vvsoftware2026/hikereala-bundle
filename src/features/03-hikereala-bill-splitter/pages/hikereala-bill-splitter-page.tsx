@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Stack, Typography } from "@mui/material"
 import image from "../assets/hikereala_bill_splitter_header.png"
 import { Balances } from "../components/Balances";
