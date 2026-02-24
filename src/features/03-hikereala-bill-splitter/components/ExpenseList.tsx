@@ -1,30 +1,63 @@
-import { Button, Card, Stack, Typography } from "@mui/material";
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import {
+  Button,
+  Card,
+  Stack,
+  Typography,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper
+} from "@mui/material";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useBillSplitter } from "../context/BillSplitterContext";
 
-
 export function ExpenseList() {
-const {expenses, removeExpense} = useBillSplitter();
-    const expenseRows = expenses.map(expense => <tr><td>{expense.name}</td><td>{expense.sum}</td><td>{expense.description}</td><td><Button onClick={() => removeExpense(expense.id)} variant="text" color="error">X</Button></td></tr>);
+  const { expenses, removeExpense } = useBillSplitter();
 
-    return (
-            <Card sx={{marginTop: "24px", padding: "8px"}}>
-        <Stack gap={2} sx={{maxWidth: "480px", marginInline: "auto"}}>
-            <Stack direction="row" gap={2}>
-            <ShoppingCartIcon fontSize="large"></ShoppingCartIcon>
-            <Typography variant="h4">Cheltuieli</Typography>
-            </Stack>
-        
-        <table style={{marginTop: "16px"}}>
-         <tr>
-            <td>Hikerist</td>
-            <td>Suma platita</td>
-            <td>Descriere</td>
-            <td>Sterge cheltuiala</td>
-         </tr>
-         {expenseRows}
-        </table>
+  return (
+    <Card sx={{ mt: 3, p: 2 }}>
+      <Stack gap={2} sx={{ maxWidth: 480, mx: "auto" }}>
+        <Stack direction="row" gap={2} alignItems="center">
+          <ShoppingCartIcon fontSize="large" />
+          <Typography variant="h4">Cheltuieli</Typography>
         </Stack>
-        </Card>
-    )
+
+        <TableContainer component={Paper} elevation={0}>
+          <Table size="small">
+            <TableHead>
+              <TableRow>
+                <TableCell><strong>Hikerist</strong></TableCell>
+                <TableCell><strong>Suma platita</strong></TableCell>
+                <TableCell><strong>Descriere</strong></TableCell>
+                <TableCell><strong>Sterge</strong></TableCell>
+              </TableRow>
+            </TableHead>
+
+            <TableBody>
+              {expenses.map((expense) => (
+                <TableRow key={expense.id}>
+                  <TableCell>{expense.name}</TableCell>
+                  <TableCell>{expense.sum}</TableCell>
+                  <TableCell>{expense.description}</TableCell>
+                  <TableCell>
+                    <Button
+                      onClick={() => removeExpense(expense.id)}
+                      variant="text"
+                      color="error"
+                      size="small"
+                    >
+                      X
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Stack>
+    </Card>
+  );
 }

@@ -1,32 +1,88 @@
-import { Button, Card, MenuItem, Select, Stack, TextField, Typography } from "@mui/material";
+import {
+  Button,
+  Card,
+  MenuItem,
+  Select,
+  Stack,
+  TextField,
+  Typography,
+  InputLabel,
+  FormControl
+} from "@mui/material";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { useState } from "react";
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { useBillSplitter } from "../context/BillSplitterContext";
 
 export function ExpenseAdder() {
-    const {participants, addExpense} = useBillSplitter();
-    const [expensePerson, setExpensePerson] = useState<string>("default");
-    const [expenseSum, setExpenseSum] = useState<string>("0");
-    const [expenseDescription, setExpenseDescription] = useState<string>("");
+  const { participants, addExpense } = useBillSplitter();
 
-    const selections = participants.length != 0 ? participants.map(participant => <MenuItem value={participant}>{participant}</MenuItem>) : <MenuItem value={"default"}>Fara hikeristi adaugati</MenuItem>;
-    
-    return (
-        <Card sx={{marginTop: "24px", padding: "8px"}}>
-        <Stack gap={2} sx={{maxWidth: "480px", marginInline: "auto"}}>
-             <Stack direction="row" gap={2}>
-            <AddShoppingCartIcon fontSize="large"></AddShoppingCartIcon>
-            <Typography variant="h4">Adaugare cheltuiala</Typography>
-            </Stack>
-             <Stack sx={{justifyContent: "space-between"}} direction={"row"} gap={2}>
-            <Select sx={{height: "40px",}} disabled={participants.length == 0} value={expensePerson} onChange={(event) => setExpensePerson(event.target.value)}>
-                {selections}
-            </Select>
-            <TextField onChange={(event) => setExpenseSum(event.target.value)} value={expenseSum} size="small"></TextField>
-            </Stack>
-            <TextField type="text" placeholder="Descriere (optionala)" size="small" onChange={(event) => setExpenseDescription(event.target.value)} value={expenseDescription}></TextField>
-            <Button sx={{height: "40px"}}  disabled={participants.length == 0} variant="contained" onClick={() => addExpense(expensePerson, Number(expenseSum), expenseDescription)}>Adauga</Button>
+  const [expensePerson, setExpensePerson] = useState("default");
+  const [expenseSum, setExpenseSum] = useState("0");
+  const [expenseDescription, setExpenseDescription] = useState("");
+
+  const hasParticipants = participants.length > 0;
+
+  return (
+    <Card sx={{ mt: 3, p: 3 }}>
+      <Stack gap={3} sx={{ maxWidth: 480, mx: "auto" }}>
+        {/* Header */}
+        <Stack direction="row" gap={2} alignItems="center">
+          <AddShoppingCartIcon fontSize="large" />
+          <Typography variant="h4">Adăugare cheltuială</Typography>
         </Stack>
-        </Card>
-    )
+
+        {/* Form fields */}
+        <Stack gap={2}>
+          <FormControl fullWidth size="small">
+            <InputLabel>Hikerist</InputLabel>
+            <Select
+              label="Hikerist"
+              disabled={!hasParticipants}
+              value={expensePerson}
+              onChange={(e) => setExpensePerson(e.target.value)}
+            >
+              {hasParticipants ? (
+                participants.map((p) => (
+                  <MenuItem key={p} value={p}>
+                    {p}
+                  </MenuItem>
+                ))
+              ) : (
+                <MenuItem value="default">Fără hikeristi adăugați</MenuItem>
+              )}
+            </Select>
+          </FormControl>
+
+          <TextField
+            label="Sumă"
+            type="number"
+            size="small"
+            value={expenseSum}
+            onChange={(e) => setExpenseSum(e.target.value)}
+            fullWidth
+          />
+
+          <TextField
+            label="Descriere (opțional)"
+            size="small"
+            value={expenseDescription}
+            onChange={(e) => setExpenseDescription(e.target.value)}
+            fullWidth
+          />
+        </Stack>
+
+        {/* Submit button */}
+        <Button
+          variant="contained"
+          size="large"
+          disabled={!hasParticipants}
+          onClick={() =>
+            addExpense(expensePerson, Number(expenseSum), expenseDescription)
+          }
+        >
+          Adaugă
+        </Button>
+      </Stack>
+    </Card>
+  );
 }

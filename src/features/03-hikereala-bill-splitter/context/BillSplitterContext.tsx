@@ -34,7 +34,7 @@ const BillSplitterContext = createContext<BillSplitterContextType | null>(null);
 
 export function BillSplitterProvider({ children }: { children: React.ReactNode }) {
     
-  const [participants, setParticipants] = useState<string[]>([]);
+  const [participants, setParticipants] = useState<string[]>(["Vlad", "Nico", "Bogdi", "Rebeca", "VladSiculan"]);
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const [balances, ] = useState<BalancePerPerson[]>([])
   let expenseCounter = useRef(0);

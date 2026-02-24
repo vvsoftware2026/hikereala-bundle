@@ -1,9 +1,23 @@
-import { Card, Typography } from "@mui/material"
+import { Card, Typography, Stack } from "@mui/material";
 
 export function Footer() {
-    return(
-        <Card sx={{marginTop: "24px" , padding: "8px"}}>
-        <Typography>Dezvoltat cu dragoste pentru amicii mei, pentru toate cazurile in care drumul e lung, dar calcularea datoriilor sunt si mai lungi...</Typography>
+  return (
+    <Card sx={{ mt: 3, p: 3 }}>
+      <Stack spacing={1} sx={{ textAlign: "center", maxWidth: 600, mx: "auto" }}>
+  <Typography variant="subtitle1" fontWeight={600}>
+    Dezvoltat cu dragoste
+  </Typography>
+  <Typography variant="body2" color="text.secondary">
+    Pentru amicii mei...
+  </Typography>
+  <Typography variant="body2" color="text.secondary">
+    In ciubar stau...
+  </Typography>
+  <Typography variant="body2" color="text.secondary">
+    Si beau cu ei...
+  </Typography>
+</Stack>
+
     </Card>
-    )
+  );
 }

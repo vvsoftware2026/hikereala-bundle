@@ -1,34 +1,70 @@
-import { Button, Card, Chip, Stack, TextField, Typography } from "@mui/material"
-import { useState } from "react"
-import GroupsIcon from '@mui/icons-material/Groups';
+import {
+  Button,
+  Card,
+  Chip,
+  Stack,
+  TextField,
+  Typography,
+  Box
+} from "@mui/material";
+import GroupsIcon from "@mui/icons-material/Groups";
+import { useState } from "react";
 import { useBillSplitter } from "../context/BillSplitterContext";
 
 export function Participants() {
-    const {addParticipant, deleteParticipant, participants} = useBillSplitter();
-    const [participantToAdd, setParticipantToAdd] = useState<string>();
+  const { addParticipant, deleteParticipant, participants } = useBillSplitter();
+  const [participantToAdd, setParticipantToAdd] = useState("");
 
-    function handleDelete(chipToDelete: any) {
-        deleteParticipant(chipToDelete)
-    }
+  return (
+    <Card sx={{ mt: 3, p: 3 }} elevation={1}>
+      <Stack sx={{ maxWidth: 480, mx: "auto" }} spacing={3}>
+        {/* Header */}
+        <Stack direction="row" spacing={2} alignItems="center">
+          <GroupsIcon fontSize="large" />
+          <Typography variant="h4">Hikeriști participanți</Typography>
+        </Stack>
 
-    return (
-       <Card sx={{marginTop: "24px", padding: "8px"}}>
-         <Stack sx={{maxWidth: "480px", marginInline: "auto"}} direction="column" spacing={2} overflow={"auto"} >
-        <Stack direction="row" gap={2}>
-             <GroupsIcon fontSize="large"></GroupsIcon>
-             <Typography variant="h4">Hikeristi participanti</Typography>
-        </Stack>
-    
-        <Stack sx={{justifyContent: "space-between"}} direction="row" spacing={2}>
-        <TextField margin="normal"  onChange={(event) => setParticipantToAdd(event.target.value)} value={participantToAdd} size="small"></TextField>
-        <Button onClick={() => addParticipant(participantToAdd ?? "")}variant="contained">Adauga</Button>
-        </Stack>
+        {/* Add participant */}
         <Stack direction="row" spacing={2}>
-        <div>
-            {participants.map(participant => <Chip sx={{margin: "4px"}} color="info" label={participant} onDelete={() => handleDelete(participant)}></Chip>)}
-        </div>
+          <TextField
+            label="Nume hikerist"
+            size="small"
+            fullWidth
+            value={participantToAdd}
+            onChange={(e) => setParticipantToAdd(e.target.value)}
+          />
+          <Button
+            variant="contained"
+            onClick={() => {
+              if (participantToAdd.trim()) {
+                addParticipant(participantToAdd.trim());
+                setParticipantToAdd("");
+              }
+            }}
+          >
+            Adaugă
+          </Button>
         </Stack>
-        </Stack>
-        </Card>
-    )
+
+        {/* Chip list */}
+        <Box
+          sx={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: 1,
+            mt: 1
+          }}
+        >
+          {participants.map((p) => (
+            <Chip
+              key={p}
+              label={p}
+              color="info"
+              onDelete={() => deleteParticipant(p)}
+            />
+          ))}
+        </Box>
+      </Stack>
+    </Card>
+  );
 }
