@@ -3,6 +3,7 @@ import LaunchPage from "./features/00-app/pages/launch-page";
 import MareaCiubarealaPage from "./features/01-marea-ciubareala/pages/marea-ciubareala-page";
 import { HikerealaBillSplitterPage } from "./features/03-hikereala-bill-splitter/pages/hikereala-bill-splitter-page";
 import "./App.css"
+import SpinTheDinkPage from "./features/02-spin-the-drink/pages/spin-the-drink-page";
 
 export default function App() {
   return (
@@ -10,7 +11,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<LaunchPage />} />
         <Route path="/marea-ciubareala" element={<MareaCiubarealaPage />} />
-        <Route path="/spin-the-drink" element={<>Will come...</>} />
+        <Route path="/spin-the-drink" element={<SpinTheDinkPage/>} />
         <Route path="/hbs" element={<HikerealaBillSplitterPage/>} />
       </Routes>
       <footer className="py-3 text-center text-xs text-gray-500">
